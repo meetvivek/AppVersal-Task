@@ -7,7 +7,7 @@ from django.conf import settings
 class CustomUser(AbstractUser):
     name = models.CharField(max_length=100)
     age = models.IntegerField(null=True, blank=True)
-    location = models.IntegerField(null=True, blank=True)
+    location = models.CharField(max_length=300,  blank=True, null=True)
 
 class Image(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_images')
