@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Image
 from .serializers import RegisterSerializer, ImageUploadSerializer, ReadOnlyImageSerializer
 from rest_framework import generics, permissions
+from .bg_task import image_operation
 # Create your views here.
 
 class RegisterView(generics.CreateAPIView):
@@ -14,6 +15,7 @@ class ImageUploadView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user, file_name=self.request.FILES['image'].name)
+        image_operation(serializer.instance.id)
 
 
 class UserImageView(generics.ListAPIView):
