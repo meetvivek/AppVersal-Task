@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import CustomUser, Image
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'username', 'email', 'name', 'age', 'location')
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -15,7 +21,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
     
 
-class UserSerializer(serializers.ModelSerializer):
+class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
-        fields = ('id', 'username', 'email', 'name', 'age', 'location')
+        model = Image
+        fields = ['id', 'image', 'file_name', 'uploaded_at']
