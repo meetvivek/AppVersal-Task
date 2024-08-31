@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Image
-from .serializers import RegisterSerializer, ImageUploadSerializer
+from .serializers import RegisterSerializer, ImageUploadSerializer, ReadOnlyImageSerializer
 from rest_framework import generics, permissions
 # Create your views here.
 
@@ -14,3 +14,11 @@ class ImageUploadView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user, file_name=self.request.FILES['image'].name)
+
+
+class UserImageView(generics.ListAPIView):
+    serializer_class = ReadOnlyImageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Image.objects.filter(user=self.request.user).values('file_name')

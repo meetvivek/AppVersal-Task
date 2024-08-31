@@ -25,3 +25,9 @@ class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ['id', 'image', 'file_name', 'uploaded_at']
+
+
+class ReadOnlyImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['file_name']
