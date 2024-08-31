@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
 MY_APPS =[
     'users',
+    'rest_framework',
 ]
 
 INSTALLED_APPS += MY_APPS
@@ -134,3 +135,9 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
